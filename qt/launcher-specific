@@ -31,20 +31,6 @@ if [ "$USE_qt5" = true ]; then
     prepend_dir QML2_IMPORT_PATH $SNAP/lib/$ARCH
   fi
   prepend_dir PATH $RUNTIME/usr/lib/$ARCH/qt5/bin
-
-  if [ "$wayland_available" = true ]; then
-    export QT_QPA_PLATFORM=wayland-egl
-    # Does not hurt to specify these as well, just in case
-    export GDK_BACKEND="wayland"
-    export CLUTTER_BACKEND="wayland"
-  else
-    # Should check if a X11 $DISPLAY variable is set and accessible
-    export QT_QPA_PLATFORM=xcb
-    if ! [ -v QT_QPA_PLATFORMTHEME ] || [ -z "${QT_QPA_PLATFORMTHEME}" ]; then
-      export QT_QPA_PLATFORMTHEME=appmenu-qt5
-    fi
-  fi
-
 else
   [ "$wayland_available" = true ] && echo "Warning: Qt4 does not support Wayland!"
   append_dir LD_LIBRARY_PATH $SNAP/usr/lib/$ARCH/qt4
