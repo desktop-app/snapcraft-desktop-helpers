@@ -25,11 +25,11 @@ else
   ARCH="$SNAP_ARCH-linux-gnu"
 fi
 
-append_dir LD_LIBRARY_PATH "$SNAP_DESKTOP_RUNTIME/lib/$ARCH"
-append_dir LD_LIBRARY_PATH "$SNAP_DESKTOP_RUNTIME/usr/lib/$ARCH"
-append_dir LD_LIBRARY_PATH "$SNAP_DESKTOP_RUNTIME/usr/lib"
-append_dir LD_LIBRARY_PATH "$SNAP_DESKTOP_RUNTIME/lib"
-append_dir PATH "$SNAP_DESKTOP_RUNTIME/usr/bin"
+append_dir LD_LIBRARY_PATH "$SNAP/lib/$ARCH"
+append_dir LD_LIBRARY_PATH "$SNAP/usr/lib/$ARCH"
+append_dir LD_LIBRARY_PATH "$SNAP/usr/lib"
+append_dir LD_LIBRARY_PATH "$SNAP/lib"
+append_dir PATH "$SNAP/usr/bin"
 
 cat > "${SNAP_COMMON}/fontconfig/fonts.conf" <<EOF
 <fontconfig>
@@ -40,6 +40,6 @@ EOF
 
 export FONTCONFIG_FILE="${SNAP_COMMON}/fontconfig/fonts.conf"
 
-"${SNAP_DESKTOP_RUNTIME}/usr/bin/fc-cache" --force --system-only --verbose || echo "configure hook: font generation failed"
+"${SNAP}/usr/bin/fc-cache" --force --system-only --verbose || echo "configure hook: font generation failed"
 
 exec "$@"
